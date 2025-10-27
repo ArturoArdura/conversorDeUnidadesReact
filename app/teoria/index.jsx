@@ -1,9 +1,12 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter as UseRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Platform, Text, TouchableOpacity, View } from 'react-native';
 import { FlatlistComponent } from './flatlist';
+import { Gradientes } from './gradiente';
 import { SectionListComponent } from './sectionlist';
+
 
 
 
@@ -11,6 +14,7 @@ export default function Index() {
   const dataCategorias = [
     { id: 1, nombre: 'Flatlist', component:<FlatlistComponent /> },
     { id: 2, nombre: 'SectionList', component:<SectionListComponent /> },
+    { id: 3, nombre: 'Gradientes', component:<Gradientes /> },
   ]
   const [selectedCategory, setSelectedCategory] = useState(dataCategorias[0]);
 
@@ -19,6 +23,7 @@ export default function Index() {
   return (
     <Container>
       <StatusBar style="light" />
+      <GradientBackground></GradientBackground>
       <TextGrande>Seleccione una categoría</TextGrande>
       <ContenedorCategorias>
         {dataCategorias.map((item) => {
@@ -60,7 +65,7 @@ export const ButtonChido = ({children}) => {
 
 const Container = ({children}) => {
   return (
-    <View className="flex-1 bg-black items-center" style={{paddingTop:Platform.OS === 'android' ? 50 : 0}}>
+    <View className="flex-1 bg-black items-center relative" style={{paddingTop:Platform.OS === 'android' ? 50 : 0}}>
       {children}
     </View>
   )
@@ -96,5 +101,14 @@ const ContentComponent = ({ children }) => {
     <View className="flex-1 w-full mt-5">
       {children}
     </View>
+  )
+}
+
+
+const GradientBackground = ({ children }) => {
+  return (
+    <LinearGradient className="w-full absolute h-80" colors={['green', 'transparent']} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.5 }}>
+      {children}
+    </LinearGradient>
   )
 }

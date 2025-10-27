@@ -38,7 +38,7 @@ export function FlatlistComponent() {
 
   return (
     //Contenedor principal
-    <SafeAreaView className="flex-1 justify-center items-center bg-black mt-10">
+    <SafeAreaView className="flex-1 justify-center items-center mt-10">
       <ExpoStatusBar style="inverted" />
       <Text className="text-4xl font-bold text-white">Flatlist</Text>
       <FlatList data={data} renderItem={ renderItem }/>
