@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { Platform, Text, TouchableOpacity, View } from 'react-native';
 import { FlatlistComponent } from './flatlist';
 import { Gradientes } from './gradiente';
+import { Rickandmorty } from './rickandmorty';
 import { SectionListComponent } from './sectionlist';
 
 
@@ -15,6 +16,8 @@ export default function Index() {
     { id: 1, nombre: 'Flatlist', component:<FlatlistComponent /> },
     { id: 2, nombre: 'SectionList', component:<SectionListComponent /> },
     { id: 3, nombre: 'Gradientes', component:<Gradientes /> },
+    { id: 4, nombre: 'Rick and Morty', component:<Rickandmorty /> },
+
   ]
   const [selectedCategory, setSelectedCategory] = useState(dataCategorias[0]);
 
