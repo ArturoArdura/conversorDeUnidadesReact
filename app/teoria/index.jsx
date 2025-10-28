@@ -94,7 +94,7 @@ const CategoryContainer = ({ children, selected, onPress }) => {
 
 const CategoryName = ({ children }) => {
   return (
-    <Text className="text-white text-lg">{children}</Text>
+    <Text className="text-white text-sm">{children}</Text>
   )
 }
 
