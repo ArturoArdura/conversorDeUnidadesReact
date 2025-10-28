@@ -1,26 +1,35 @@
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
-import { FlatList, SafeAreaView, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, FlatList, SafeAreaView, Text, View } from 'react-native';
 
 export function FlatlistComponent() {
-  //datos hardcodeados
-  const data = [
-    {
-      producto: 'Cerveza',
-      precio: "5 peso",
-    },
-    {
-      producto: 'Agua mineral',
-      precio: "2 peso",
-    },
-    {
-      producto: 'Coca cola',
-      precio: "10 peso",
-    },
-    {
-      producto: 'Jugo de naranja',
-      precio: "8 peso",
-    }
-  ]
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+
+
+
+  const llamardata = (page) => {
+    return Array.from({length:20}, (_, i) => `item ${page*20+i+1}`);
+  };
+
+  const cargardata = React.useCallback(() => {
+    if (loading) return;
+    setLoading (true)
+    setTimeout(()=>{
+      const newdata = llamardata(page);
+      setData ((prevData) => [...prevData, ...newdata]);
+      setPage((prevPage) => prevPage + 1)
+      setLoading (false)
+    },1500);
+    
+  }, [loading, page]);
+
+  React.useEffect(() => {
+    cargardata();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   
 
@@ -28,8 +37,7 @@ export function FlatlistComponent() {
     return (
 
       <View>
-        <Text className="text-white">{item.producto}</Text>
-        <Text className="text-white">{item.precio}</Text>
+        <Text className="text-white">{item}</Text>
       </View>
     )
   }
@@ -41,7 +49,14 @@ export function FlatlistComponent() {
     <SafeAreaView className="flex-1 justify-center items-center mt-10">
       <ExpoStatusBar style="inverted" />
       <Text className="text-4xl font-bold text-white">Flatlist</Text>
-      <FlatList data={data} renderItem={ renderItem }/>
+      <FlatList 
+      keyExtractor={(item, index) => `${item}-${index}`}
+      data={data} 
+      renderItem={ renderItem }
+      onEndReached={cargardata}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={() => loading?<ActivityIndicator size="large" color="#0000ff"/>: null}
+      />
     </SafeAreaView>
   )
 }

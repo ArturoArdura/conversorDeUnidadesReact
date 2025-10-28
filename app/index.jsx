@@ -7,6 +7,7 @@ export default function index() {
     const datarutas = [
         {name: "Conversor", ref: "conversor"},
         {name: "Teoría", ref: "teoria"},
+        {name: "Tabs", ref: "/(tabs)"},        
     ]
 
     const renderItem = ({ item }) => (
